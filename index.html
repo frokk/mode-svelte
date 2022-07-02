@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Svelte Mode Demo</title>
+
+	<!-- Basic Styling & Base16 Dark Theme -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/theme/base16-dark.min.css" integrity="sha512-CNZkbIVu/G4dB3YpFIZgMtE45vHp/QocgMbf6jg+DFFPLN3emncIob8ubKANmsGQ8JsnzzSVTj7WrFrnx6EgXQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!-- Font - Inconsolata -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+
+	<style>
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		:root { font-size: 16px; }
+
+		body, html {
+			color: #E0E0E0;
+			background-color: #252525;
+		}
+
+		.wrapper {
+			font-family: 'Inconsolata', monospace;
+			margin: 0 auto;
+			max-width: 800px;
+		}
+
+		.wrapper .title {
+			margin: 2rem 2rem 1rem 0;
+			display: block;
+			text-align: right;
+		}
+
+		.wrapper .title h1 { font-size: 2rem; }
+		.wrapper .title h2 { font-size: 1.57rem; }
+		.wrapper footer {
+			user-select: none;
+			margin-top: 2rem;
+			display: block;
+			text-align: center;
+		}
+		.wrapper footer a {
+			font-size: 1.2rem;
+			text-decoration: none;
+			color: #4498d4;
+		}
+		.wrapper footer a:hover {
+			text-decoration: underline;
+			color: #42a6ed;
+		}
+		.usage {
+			margin-top: 1rem;
+			text-align: center;
+			font-size: 1.2rem;
+		}
+		.usage code {
+			font-size: 1rem;
+			padding: 2px 6px;
+			border-radius: 5px;
+			background-color: #444;
+		}
+
+		#cmArea {
+			margin: 5px;
+			border: 3px solid #333;
+			font-size: 1.2rem;
+			height: 70vh;
+		}
+
+		.CodeMirror {
+			font-family: 'Inconsolata', monospace;
+		}
+	</style>
+</head>
+<body>
+
+<div class="wrapper">
+	<div class="title">
+		<h1>Svelte Mode</h1>
+		<h2>For CodeMirror</h2>
+	</div>
+	<div id="cmArea"></div>
+	<div class="usage">
+		<p>Mime Types: <code>svelte</code>, <code>text/x-svelte</code></p>
+	</div>
+	<footer>
+		<a href="https://github.com/atomed2/mode-svelte">GitHub</a>
+		<span>|</span>
+		<a href="https://codemirror.net/5/">CodeMirror 5</a>
+	</footer>
+</div>
+
+<!-- CodeMirror Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/codemirror.min.js" integrity="sha512-n7rucz/qOiYAkYK1CVKuqygMAnohil8Rg6kKAv0IsF2xnHUhnVyD5K9GO25OUvc+WEVZVu+NIYLblIUpkBMNvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Required For Svelte Mode -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/addon/mode/overlay.min.js" integrity="sha512-SNwKDMYQwymOPjleeZy1xbdlK1PAjJ6EAplvx0CvNFJbW/pF5ec3h0mAdDl1yySq9r3Qont4STM4W3le7FTm9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/mode/xml/xml.min.js" integrity="sha512-LarNmzVokUmcA7aUDtqZ6oTS+YXmUKzpGdm8DxC46A6AHu+PQiYCUlwEGWidjVYMo/QXZMFMIadZtrkfApYp/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/mode/javascript/javascript.min.js" integrity="sha512-I6CdJdruzGtvDyvdO4YsiAq+pkWf2efgd1ZUSK2FnM/u2VuRASPC7GowWQrWyjxCZn6CT89s3ddGI+be0Ak9Fg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/mode/css/css.min.js" integrity="sha512-oikhYLgIKf0zWtVTOXh101BWoSacgv4UTJHQOHU+iUQ1Dol3Xjz/o9Jh0U33MPoT/d4aQruvjNvcYxvkTQd0nA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/mode/htmlmixed/htmlmixed.min.js" integrity="sha512-HN6cn6mIWeFJFwRN9yetDAMSh+AK9myHF1X9GlSlKmThaat65342Yw8wL7ITuaJnPioG0SYG09gy0qd5+s777w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Svelte Mode -->
+<script src="./lib/index.js" defer></script>
+
+<!-- Sample Code -->
+<script src="./main.js" defer></script>
+</body>
+</html>

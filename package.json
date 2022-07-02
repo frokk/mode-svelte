@@ -1,6 +1,6 @@
 {
 	"name": "codemirror-mode-svelte",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Svelte Mode For CodeMirror",
 	"main": "lib/index.js",
 	"scripts": {

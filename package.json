@@ -1,0 +1,31 @@
+{
+	"name": "codemirror-mode-svelte",
+	"version": "1.0.0",
+	"description": "Svelte Mode For CodeMirror",
+	"main": "lib/index.js",
+	"scripts": {
+		"test": "http-server -o /"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/atomed2/mode-svelte.git"
+	},
+	"keywords": [
+		"codemirror",
+		"svelte",
+		"svelte3",
+		"mode"
+	],
+	"author": "Juan Gomez",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/atomed2/mode-svelte/issues"
+	},
+	"homepage": "https://github.com/atomed2/mode-svelte#readme",
+	"dependencies": {
+		"codemirror": "^5.65.6"
+	},
+	"devDependencies": {
+		"http-server": "^14.1.1"
+	}
+}
